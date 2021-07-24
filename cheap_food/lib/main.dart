@@ -39,19 +39,13 @@ class MyApp extends StatefulWidget {
 class _MyAppState extends State<MyApp> {
 
   GlobalKey<CurvedNavigationBarState> _bottomNavigationKey = GlobalKey();
-  int _page = 0;
+  int _page = 1;
   
   List<Widget> _pageOptions = <Widget>[
     HomePage(),
     ListaProductosPage(),
     InfoPage(),
   ];
-
-  void _onItemTapped(int index) {
-    setState(() {
-      _page = index;
-    });
-  }
 
   @override
   void initState() {
@@ -93,23 +87,23 @@ class _MyAppState extends State<MyApp> {
         floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
         bottomNavigationBar: CurvedNavigationBar(
           key: _bottomNavigationKey,
-          index: 0,
+          index: 1,
           height: 60.0,
           items: <Widget>[
-            Icon(Icons.add, size: 30),
+            Icon(Icons.home, size: 30),
             Icon(Icons.list, size: 30),
-            Icon(Icons.compare_arrows, size: 30),
-            Icon(Icons.call_split, size: 30),
-            Icon(Icons.perm_identity, size: 30),
+            Icon(Icons.info, size: 30),
           ],
           color: Colors.white,
           buttonBackgroundColor: Colors.white,
-          backgroundColor: Colors.blueAccent,
+          backgroundColor: colorAccentuado,
           animationCurve: Curves.easeInOut,
           animationDuration: Duration(milliseconds: 600),
           onTap: (index) => {
-            _onItemTapped(index)
-            },
+              setState(() {
+                _page = index;
+              })
+          },
           letIndexChange: (index) => true,
         ),
       );
