@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "817265633421",
+    "firebase_url": "https://cheap-food-3dc88.firebaseio.com",
+    "project_id": "cheap-food-3dc88",
+    "storage_bucket": "cheap-food-3dc88.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:817265633421:android:7f9ecd4e4e514379dcdac4",
+        "android_client_info": {
+          "package_name": "com.abamadevelopers.cheap_food"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "817265633421-14cjb376fqg4fv1kbskb8ea94bej6lat.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.abamadevelopers.cheap_food",
+            "certificate_hash": "2badcffdc7ee789681d14d9522a220ba47857f40"
+          }
+        },
+        {
+          "client_id": "817265633421-lsn0ahdf3gee4ek27rbsddibkbqfgsmk.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCu3kJmESNw04m9gjvQrVwMMCxCW0Uk83I"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "817265633421-lsn0ahdf3gee4ek27rbsddibkbqfgsmk.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "817265633421-b0vk7s6qg9i8raf1gjp3lb8mjrre2lne.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.ausiasbm.cheapFood"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

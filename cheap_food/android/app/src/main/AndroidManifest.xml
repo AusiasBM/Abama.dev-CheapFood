@@ -1,7 +1,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.cheap_food">
+    package="com.abamadevelopers.cheap_food">
    <application
-        android:label="cheap_food"
+        android:label="Cheap Food"
         android:icon="@mipmap/ic_launcher"
         android:name="androidx.multidex.MultiDexApplication" >
         <activity
