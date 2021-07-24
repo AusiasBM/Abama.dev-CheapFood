@@ -8,10 +8,15 @@ class ListaProductosPage extends StatefulWidget {
 }
 
 class _ListaProductosPageState extends State<ListaProductosPage> {
+
+  List<Widget> _productosRelacionados = <Widget>[
+
+  ];
+
   @override
   Widget build(BuildContext context) {
     return Container(
-       child: null,
+       child: Text("HOLAAAAA"),
     );
   }
 }

@@ -30,8 +30,6 @@ void main() async {
  
 // ignore: must_be_immutable
 class MyApp extends StatefulWidget {
-  MyApp({Key key}) : super(key: key);
-
   FirebaseFirestore firestore = FirebaseFirestore.instance;
 
   @override
@@ -40,24 +38,24 @@ class MyApp extends StatefulWidget {
 
 class _MyAppState extends State<MyApp> {
 
-  //String _scanBarcode = 'Unknown';
+  GlobalKey<CurvedNavigationBarState> _bottomNavigationKey = GlobalKey();
+  int _page = 0;
+  
+  List<Widget> _pageOptions = <Widget>[
+    HomePage(),
+    ListaProductosPage(),
+    InfoPage(),
+  ];
+
+  void _onItemTapped(int index) {
+    setState(() {
+      _page = index;
+    });
+  }
 
   @override
   void initState() {
     super.initState();
-  }
-
-  Future<void> startBarcodeScanStream() async {
-    FlutterBarcodeScanner.getBarcodeStreamReceiver(
-            '#ff6666', 'Cancelar', false, ScanMode.BARCODE)
-        .listen((barcode) => {
-          buscarCodigoBarras(barcode),
-          showDialog(
-            context: context,
-            builder: (_) => _buildAlertDialog(),
-          )
-            
-        });
   }
 
   Future<void> scanBarcodeNormal() async {
@@ -65,7 +63,7 @@ class _MyAppState extends State<MyApp> {
     
     try {
       barcodeScanRes = await FlutterBarcodeScanner.scanBarcode(
-          '#ff6666', 'Cancelar', false, ScanMode.BARCODE);
+          colorPrimario.toString(), 'Cancelar', false, ScanMode.BARCODE);
       print(barcodeScanRes);
       buscarCodigoBarras(barcodeScanRes);
     } on PlatformException {
@@ -80,66 +78,41 @@ class _MyAppState extends State<MyApp> {
 
   @override
   Widget build(BuildContext context) {
-
-    int _page = 0;
-    GlobalKey<CurvedNavigationBarState> _bottomNavigationKey = GlobalKey();
-
     return Scaffold(
-        bottomNavigationBar: CurvedNavigationBar(
-          key: _bottomNavigationKey,
-          index: 0,
-          height: 60.0,
-          color: Colors.white,
-          buttonBackgroundColor: colorPrimario,
-          backgroundColor: colorAccentuado,
-          animationCurve: Curves.fastOutSlowIn,
-          animationDuration: Duration(milliseconds: 600),
-          items: <Widget>[
-            Icon(Icons.home, size: 30),
-            Icon(Icons.list, size: 30),
-            Icon(Icons.info, size: 30),
-          ],
-          onTap: (index) {
-            print(index);
-            _page = index;
-          },
-          letIndexChange: (index) => true,
-        ),
         body: SafeArea(
-          child: _page == 0 ? HomePage() : { _page == 1 ? ListaProductosPage() :  InfoPage() }
+          child: _pageOptions.elementAt(_page),
         ),
         floatingActionButton: FloatingActionButton(
           backgroundColor: colorAccentuado,
           onPressed: () => {
             scanBarcodeNormal()
-            //startBarcodeScanStream()
           }, 
           elevation: 5.0,
           child: Icon(Icons.qr_code_rounded, size: 30.0,),
         ),
         floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
+        bottomNavigationBar: CurvedNavigationBar(
+          key: _bottomNavigationKey,
+          index: 0,
+          height: 60.0,
+          items: <Widget>[
+            Icon(Icons.add, size: 30),
+            Icon(Icons.list, size: 30),
+            Icon(Icons.compare_arrows, size: 30),
+            Icon(Icons.call_split, size: 30),
+            Icon(Icons.perm_identity, size: 30),
+          ],
+          color: Colors.white,
+          buttonBackgroundColor: Colors.white,
+          backgroundColor: Colors.blueAccent,
+          animationCurve: Curves.easeInOut,
+          animationDuration: Duration(milliseconds: 600),
+          onTap: (index) => {
+            _onItemTapped(index)
+            },
+          letIndexChange: (index) => true,
+        ),
       );
   }
-
-  Widget _buildAlertDialog() {
-      return AlertDialog(
-        title: Text('Notificaciones'),
-        content:
-            Text("¿Desea recibir notificaciones? Serán muy pocas de verdad :)"),
-        actions: [
-          TextButton(
-              child: Text("Aceptar"),
-              onPressed: () {
-                Navigator.of(context).pop();
-              }),
-
-          TextButton(
-              child: Text("Cancelar"),
-              onPressed: () {
-                Navigator.of(context).pop();
-              }),
-        ],
-      );
-    }
 
 }
