@@ -38,8 +38,10 @@ class MyApp extends StatefulWidget {
 
 class _MyAppState extends State<MyApp> {
 
+  String _scanBarcode = 'Unknown';
+
   GlobalKey<CurvedNavigationBarState> _bottomNavigationKey = GlobalKey();
-  int _page = 1;
+  int _page = 0;
   
   List<Widget> _pageOptions = <Widget>[
     HomePage(),
@@ -52,21 +54,28 @@ class _MyAppState extends State<MyApp> {
     super.initState();
   }
 
+  Future<void> startBarcodeScanStream() async {
+    FlutterBarcodeScanner.getBarcodeStreamReceiver(
+            '#ff6666', 'Cancel', true, ScanMode.BARCODE)
+        .listen((barcode) => print(barcode));
+  }
+
+
   Future<void> scanBarcodeNormal() async {
     String barcodeScanRes;
-    
     try {
       barcodeScanRes = await FlutterBarcodeScanner.scanBarcode(
-          colorPrimario.toString(), 'Cancelar', false, ScanMode.BARCODE);
+          '#ff6666', 'Cancel', true, ScanMode.BARCODE);
       print(barcodeScanRes);
       buscarCodigoBarras(barcodeScanRes);
     } on PlatformException {
       barcodeScanRes = 'Failed to get platform version.';
     }
+
     if (!mounted) return;
 
     setState(() {
-      
+      _scanBarcode = barcodeScanRes;
     });
   }
 
@@ -78,16 +87,15 @@ class _MyAppState extends State<MyApp> {
         ),
         floatingActionButton: FloatingActionButton(
           backgroundColor: colorAccentuado,
-          onPressed: () => {
-            scanBarcodeNormal()
-          }, 
+          onPressed: () => scanBarcodeNormal()
+          , 
           elevation: 5.0,
           child: Icon(Icons.qr_code_rounded, size: 30.0,),
         ),
         floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
         bottomNavigationBar: CurvedNavigationBar(
           key: _bottomNavigationKey,
-          index: 1,
+          index: 0,
           height: 60.0,
           items: <Widget>[
             Icon(Icons.home, size: 30),

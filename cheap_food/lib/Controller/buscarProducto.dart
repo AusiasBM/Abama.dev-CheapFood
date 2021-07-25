@@ -34,7 +34,7 @@ void buscarProductosEs(String es){
         .then((QuerySnapshot querySnapshot) {
           print("DOCUMENTOS CON EL MISMO ES");
           querySnapshot.docs.forEach((doc) {
-            print(doc.data());
+            print(doc.get(FieldPath(['es'])));
           });
         });
 }
