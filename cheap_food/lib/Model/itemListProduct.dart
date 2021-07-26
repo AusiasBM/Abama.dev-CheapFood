@@ -41,7 +41,7 @@ Widget itemListProduct( String es, String marca, String precio ){
                 ),
               ),
               Text(
-                "$marca - 1.25 kg",
+                "$marca",
                 textAlign: TextAlign.left,
                 style: GoogleFonts.poppins(
                   color: Colors.black54,
@@ -50,7 +50,7 @@ Widget itemListProduct( String es, String marca, String precio ){
             ],
           ),
           Text(
-            "12.50 €",
+            "$precio",
             style: GoogleFonts.roboto(
               color: Colors.black,
               fontWeight: FontWeight.bold,

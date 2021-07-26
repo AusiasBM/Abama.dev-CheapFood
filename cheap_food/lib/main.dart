@@ -7,7 +7,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_barcode_scanner/flutter_barcode_scanner.dart';
 
-import 'Controller/buscarProducto.dart';
 import 'View/homePage.dart';
 import 'View/infoPage.dart';
  
@@ -62,12 +61,11 @@ class _MyAppState extends State<MyApp> {
 
 
   Future<void> scanBarcodeNormal() async {
-    String barcodeScanRes;
+
     try {
       barcodeScanRes = await FlutterBarcodeScanner.scanBarcode(
           '#ff6666', 'Cancelar', true, ScanMode.BARCODE);
       print(barcodeScanRes);
-      buscarCodigoBarras(barcodeScanRes);
     } on PlatformException {
       barcodeScanRes = 'Failed to get platform version.';
     }
@@ -75,7 +73,7 @@ class _MyAppState extends State<MyApp> {
     if (!mounted) return;
 
     setState(() {
-      
+      _bottomNavigationKey.currentState.setPage(1);
     });
   }
 
