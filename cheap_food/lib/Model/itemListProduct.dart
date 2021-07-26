@@ -9,18 +9,18 @@ Widget itemListProduct( String es, String marca, String precio ){
       boxShadow: [
             new BoxShadow(
             color: colorAccentuado,
-              offset: new Offset(0.0, 5.0),
-              blurRadius: 5.0,
+              offset: new Offset(0.0, 2.0),
+              blurRadius: 1.0,
         ),
       ],
       borderRadius: BorderRadius.all(Radius.circular(20.0)),
-      color: Colors.grey[800],
-      /*gradient: LinearGradient(
+      //color: Colors.grey[800],
+      gradient: LinearGradient(
           colors: [
             colorPrimario,
-            Colors.black38, 
+            colorSecundario, 
           ]
-      )*/
+      )
     ),
     height: 90,
     child: Center(
@@ -35,7 +35,7 @@ Widget itemListProduct( String es, String marca, String precio ){
                 "$es", 
                 textAlign: TextAlign.left,
                 style: GoogleFonts.poppins(
-                  color: Colors.white,
+                  color: Colors.black,
                   fontWeight: FontWeight.bold,
                   fontSize: 24,
                 ),
@@ -44,7 +44,7 @@ Widget itemListProduct( String es, String marca, String precio ){
                 "$marca - 1.25 kg",
                 textAlign: TextAlign.left,
                 style: GoogleFonts.poppins(
-                  color: Colors.white54,
+                  color: Colors.black54,
                 ),
               ),
             ],
@@ -52,7 +52,7 @@ Widget itemListProduct( String es, String marca, String precio ){
           Text(
             "12.50 €",
             style: GoogleFonts.roboto(
-              color: Colors.white,
+              color: Colors.black,
               fontWeight: FontWeight.bold,
               fontSize: 30,
             ),

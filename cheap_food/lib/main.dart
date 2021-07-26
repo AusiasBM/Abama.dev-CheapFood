@@ -11,19 +11,21 @@ import 'Controller/buscarProducto.dart';
 import 'View/homePage.dart';
 import 'View/infoPage.dart';
  
+// Main es el primer método al que se llama para iniciar la app
 void main() async {
     WidgetsFlutterBinding.ensureInitialized();
-    await Firebase.initializeApp();
+    await Firebase.initializeApp(); // Inicializa FlutterFire, Se tiene que completar antes de que se inicialize la app
 
-    runApp( MaterialApp(
-      title: 'Cheap Food',
-      debugShowCheckedModeBanner: false,
-      routes: {
+    // Runapp es el método que arranca la app
+    runApp( MaterialApp( // Utilizamos MaterialApp como Widget principal, el cual contendrá a todos los otros
+      title: 'Cheap Food',  // Le ponemos un título a la app
+      debugShowCheckedModeBanner: false, // Quitamos la barra de debug
+      routes: { // Y creamos las rutas, las cuales servirán para menearnos entre páginas
         'home' : (context) => MyApp(),
         'listaProductos' : (context) => ListaProductosPage(),
         'infoPage' : (context) => InfoPage(),
       },
-      home: MyApp()
+      home: MyApp() // En home se le pone el Widget de la página principal
       ),
     );
 }
@@ -37,8 +39,6 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
-
-  String _scanBarcode = 'Unknown';
 
   GlobalKey<CurvedNavigationBarState> _bottomNavigationKey = GlobalKey();
   int _page = 0;
@@ -56,7 +56,7 @@ class _MyAppState extends State<MyApp> {
 
   Future<void> startBarcodeScanStream() async {
     FlutterBarcodeScanner.getBarcodeStreamReceiver(
-            '#ff6666', 'Cancel', true, ScanMode.BARCODE)
+            '#ff6666', 'Cancelar', true, ScanMode.BARCODE)
         .listen((barcode) => print(barcode));
   }
 
@@ -65,7 +65,7 @@ class _MyAppState extends State<MyApp> {
     String barcodeScanRes;
     try {
       barcodeScanRes = await FlutterBarcodeScanner.scanBarcode(
-          '#ff6666', 'Cancel', true, ScanMode.BARCODE);
+          '#ff6666', 'Cancelar', true, ScanMode.BARCODE);
       print(barcodeScanRes);
       buscarCodigoBarras(barcodeScanRes);
     } on PlatformException {
@@ -75,7 +75,7 @@ class _MyAppState extends State<MyApp> {
     if (!mounted) return;
 
     setState(() {
-      _scanBarcode = barcodeScanRes;
+      
     });
   }
 
