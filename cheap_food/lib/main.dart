@@ -7,6 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_barcode_scanner/flutter_barcode_scanner.dart';
 
+import 'Controller/buscarProductoLecturaUnica.dart';
 import 'View/homePage.dart';
 import 'View/infoPage.dart';
  
@@ -39,12 +40,14 @@ class MyApp extends StatefulWidget {
 
 class _MyAppState extends State<MyApp> {
 
+  static String barcodeScanRes = "";
+
   GlobalKey<CurvedNavigationBarState> _bottomNavigationKey = GlobalKey();
   int _page = 0;
   
   List<Widget> _pageOptions = <Widget>[
     HomePage(),
-    ListaProductosPage(),
+    ListaP(barcodeScanRes), //ListaProductosPage(),
     InfoPage(),
   ];
 
@@ -55,7 +58,7 @@ class _MyAppState extends State<MyApp> {
 
   Future<void> startBarcodeScanStream() async {
     FlutterBarcodeScanner.getBarcodeStreamReceiver(
-            '#ff6666', 'Cancelar', true, ScanMode.BARCODE)
+            '#ff6666', 'Cancelar', true, ScanMode.BARCODE)!
         .listen((barcode) => print(barcode));
   }
 
@@ -63,9 +66,15 @@ class _MyAppState extends State<MyApp> {
   Future<void> scanBarcodeNormal() async {
 
     try {
-      barcodeScanRes = await FlutterBarcodeScanner.scanBarcode(
-          '#ff6666', 'Cancelar', true, ScanMode.BARCODE);
-      print(barcodeScanRes);
+      await FlutterBarcodeScanner.scanBarcode(
+          '#ff6666', 'Cancelar', true, ScanMode.BARCODE).then((value) => {
+            barcodeScanRes = value,
+            _bottomNavigationKey.currentState!.setPage(1),
+            
+          }
+        );
+      //print(barcodeScanRes);
+      //_bottomNavigationKey.currentState!.setPage(1);
     } on PlatformException {
       barcodeScanRes = 'Failed to get platform version.';
     }
@@ -73,7 +82,6 @@ class _MyAppState extends State<MyApp> {
     if (!mounted) return;
 
     setState(() {
-      _bottomNavigationKey.currentState.setPage(1);
     });
   }
 

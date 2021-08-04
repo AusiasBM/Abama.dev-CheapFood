@@ -7,7 +7,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 Future<String> buscarCodigoBarras() {
 
   String es;
-  
+  /*
   if(barcodeScanRes != ""){
 
     FirebaseFirestore.instance
@@ -31,7 +31,7 @@ Future<String> buscarCodigoBarras() {
     });
 
   }
-  
+*/  
   return Future<String>.delayed(
     const Duration(seconds: 1),
     () => 'Consulta tu código de barras',
